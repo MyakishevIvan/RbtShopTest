@@ -1,0 +1,10 @@
+package com.ivanmyakishev.rbt.tests.testData.models;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class UserDataModel {
+    private String town;
+}
