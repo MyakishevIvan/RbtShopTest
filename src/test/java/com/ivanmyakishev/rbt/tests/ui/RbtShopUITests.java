@@ -1,16 +1,8 @@
 package com.ivanmyakishev.rbt.tests.ui;
 
-/*
-1. Выбор города +
-2. Отображение товара по категории +
-3. Ввод телефона для логина +
-4. Поиск товара по названию +
-5. Добавление товара в корзину
-6. Удаление товара из корзины
- */
-
 import com.ivanmyakishev.rbt.enums.MenuCategory;
-import com.ivanmyakishev.rbt.pages.web.MainPage;
+import com.ivanmyakishev.rbt.pages.web.mainPage.MainPage;
+import com.ivanmyakishev.rbt.pages.web.ProductPage;
 import com.ivanmyakishev.rbt.tests.testData.TestDataStorage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -18,55 +10,116 @@ import org.junit.jupiter.api.DisplayName;
 
 import java.util.List;
 
-public class RbtShopUITests {
+/*
+TODO:
+ Удаление товара из корзины
+ Проверка логотипа
+ */
+
+public class RbtShopUITests extends UITestBase{
     private MainPage mainPage;
     private TestDataStorage testDataStorage;
-    
 
     public RbtShopUITests() {
         mainPage = new MainPage();
         testDataStorage = new TestDataStorage();
     }
 
-    @DisplayName("Успешный выбор города")
+    @DisplayName("Should select town from main page")
     @Test
-    public void selectingTownCheck() {
-        String checkingTown = testDataStorage.getUserData().getTown();
-        
+    public void shouldSelectTownSuccessfully() {
+        String checkingTown = testDataStorage.getUserData().getExistingTown();
+
         mainPage.open()
-                .openTownTable()
-                .selectExistingTown(checkingTown)
-                .checkSelectedTown(checkingTown);
+                .openSelectingTownsPopup()
+                .inputTown(checkingTown)
+                .selectTown();
+        
+        mainPage.checkSelectedTown(checkingTown);
     }
 
-    @DisplayName("Успешный поиск по категории товара")
+    @DisplayName("City is not displayed when entering an invalid name")
     @Test
-    public void checkSuccessfulCategoryContentCheck() {
+    public void shouldNotDisplayTownForInvalidInput() {
+        String notExistingTown = testDataStorage.getUserData().getNotExistingTown();
+
+        mainPage.open()
+                .openSelectingTownsPopup()
+                .inputTown(notExistingTown)
+                .checkTownNotExist(notExistingTown);
+    }
+
+    @DisplayName("Should display correct content for selected category ")
+    @Test
+    public void shouldDisplayCorrectContentForSelectedCategory() {
         List<String> testingContent = testDataStorage.getShopDataModel().getDigitalContent();
         MenuCategory selectedCategory = testDataStorage.getShopDataModel().getTestingCategory();
         
         mainPage.open()
-                .openCategory(selectedCategory)
+                .openProductCategory(selectedCategory)
                 .checkCategoryContent(testingContent);
     }
 
-    @DisplayName("Успешная отправка кода для лгина")
+    @DisplayName("Verification code is sent successfully for login")
     @Test
-    public void checkSuccessfulSendingCodeForLogin() {
+    public void shouldSendLoginCodeSuccessfully() {
         String fakePhoneNumber = testDataStorage.getRussianFakePhoneNumber();
         mainPage.open()
                 .openLoginPopup()
                 .inputPhoneNumber(fakePhoneNumber)
+                .clickLoginButton()
                 .checkSuccessfulSendingCode();
     }
 
-    @DisplayName("Успешный поиск товара по названию")
+    @DisplayName("Should not send login code for invalid phone number")
     @Test
-    public void checkSuccessfulSearchProductByName() {
-        String searchingProduct = testDataStorage.getShopDataModel().getProductSearchValue();
+    public void shouldNotSendLoginCodeForInvalidPhone() {
+        String invalidPhoneNumber = testDataStorage.generateInvalidRussianPhoneNumber();
+        mainPage.open()
+                .openLoginPopup()
+                .inputPhoneNumber(invalidPhoneNumber)
+                .clickLoginButton()
+                .checkErrorMessageForInvalidPhoneNumber();
+    }
+
+    @DisplayName("Should find product by name")
+    @Test
+    public void shouldFindProductByName() {
+        String searchingProduct = testDataStorage.getShopDataModel().getValidProductName();
 
         mainPage.open()
                 .searchForProduct(searchingProduct)
                 .checkProductSearchResult(searchingProduct);
     }
+
+    @DisplayName("Should not display Product by invalid name")
+    @Test
+    public void shouldNotDisplayProductByInvalidSearchName() {
+        String invalidProductName = testDataStorage.getShopDataModel().getInvalidProductName();
+
+        mainPage.open()
+                .searchForProduct(invalidProductName)
+                .checkCountOfSearchingElement(0);
+    }
+    
+    @DisplayName("should add product to cart")
+    @Test
+    public void shouldAddProductToCartSuccessfully() {
+        String productName = testDataStorage.getShopDataModel().getValidProductName();
+
+        ProductPage productPage = mainPage
+                .open()
+                .searchForProduct(productName)
+                .clickOnSearchResultElement(0);
+
+        String productId = productPage.getProductId();
+
+        productPage
+                .clickOnCartButton()
+                .clickToCart()
+                .checkProductByName(productName)
+                .checkProductById(productId);
+    }
+    
+    
 }

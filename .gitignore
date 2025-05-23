@@ -23,3 +23,19 @@
 hs_err_pid*
 replay_pid*
 .idea/vcs.xml
+
+# Allure
+allure-results/
+**/allure-results/
+
+# Gradle
+.gradle/
+**/.gradle/
+
+# Build output
+build/
+out/
+
+# IDE
+/.idea/
+/*.iml

@@ -9,5 +9,6 @@
     "Фото и видео техника"
   ],
   "testingCategory" : "DIGITAL_DEVICES",
-  "productSearchValue" : "Samsung"
+  "validProductName" : "iphone 11",
+  "invalidProductName" : "mac"
 }

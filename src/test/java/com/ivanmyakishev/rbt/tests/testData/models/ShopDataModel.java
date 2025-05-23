@@ -11,5 +11,6 @@ import java.util.List;
 public class ShopDataModel {
     private List<String> digitalContent;
     private MenuCategory testingCategory;
-    private String productSearchValue;
+    private String validProductName;
+    private String invalidProductName;
 }

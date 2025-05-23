@@ -1,3 +1,4 @@
 {
-  "town": "Томск"
+  "existingTown": "Томск",
+  "notExistingTown": "Париж"
 }

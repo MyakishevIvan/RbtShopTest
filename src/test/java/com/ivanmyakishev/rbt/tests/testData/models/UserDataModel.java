@@ -6,5 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserDataModel {
-    private String town;
+    private String existingTown;
+    private String notExistingTown;
 }

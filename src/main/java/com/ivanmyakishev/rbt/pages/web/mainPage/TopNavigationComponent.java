@@ -1,11 +1,13 @@
-package com.ivanmyakishev.rbt.pages.web;
+package com.ivanmyakishev.rbt.pages.web.mainPage;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.ivanmyakishev.rbt.enums.MenuCategory;
+import com.ivanmyakishev.rbt.pages.web.ProductsResultPage;
 import io.qameta.allure.Step;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,13 +15,22 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class TopNavigationComponent {
     private final ElementsCollection mainMenuButtons = $$(".NavMenu_listItem__PbMwU");
-    private HashMap<MenuCategory, SelenideElement> mainMenuButtonMap;
+    private Map<MenuCategory, SelenideElement> mainMenuButtonMap;
     
     public TopNavigationComponent() {
-        createMenuButtonMap(mainMenuButtons);
     }
-
-    private void createMenuButtonMap(ElementsCollection mainMenuButtons) {
+    
+    @Step("Click on top navigation button: {category}")
+    public ProductsResultPage clickOnNavigationButton(MenuCategory category) {
+        SelenideElement categoryButton = getMainMenuButtonMap().get(category);
+        categoryButton.click();
+        return new ProductsResultPage();
+    }
+    private Map<MenuCategory, SelenideElement> getMainMenuButtonMap() {
+        if (mainMenuButtonMap != null) {
+            return mainMenuButtonMap;
+        }
+        
         MenuCategory[] enumValues = MenuCategory.values();
 
         if (mainMenuButtons.size() != enumValues.length) {
@@ -34,12 +45,7 @@ public class TopNavigationComponent {
                         (a, b) -> b,
                         HashMap::new
                 ));
-    }
 
-    @Step("Click on Top navigation button {category}")
-    public ProductsResultPage clickOnNavigationButton(MenuCategory category) {
-        SelenideElement categoryButton = mainMenuButtonMap.get(category);
-        categoryButton.click();
-        return new ProductsResultPage();
+        return mainMenuButtonMap;
     }
 }

@@ -4,6 +4,8 @@ import com.github.javafaker.Faker;
 import com.ivanmyakishev.rbt.tests.testData.models.ShopDataModel;
 import com.ivanmyakishev.rbt.tests.testData.models.UserDataModel;
 
+import java.util.Random;
+
 public class TestDataStorage {
 
     private final UserDataModel userData;
@@ -28,6 +30,25 @@ public class TestDataStorage {
    
 
     public String getRussianFakePhoneNumber() {
-        return faker.numerify("+7 (###) ###-##-##");
+        return faker.numerify("+7 (999) ###-##-##");
+    }
+
+    public String generateInvalidRussianPhoneNumber() {
+        Random random = new Random();
+
+        StringBuilder phoneNumber = new StringBuilder("+7");
+
+        int secondDigit;
+        do {
+            secondDigit = random.nextInt(10);
+        } while (secondDigit == 9);
+
+        phoneNumber.append(secondDigit);
+        
+        for (int i = 0; i < 9; i++) {
+            phoneNumber.append(random.nextInt(10));
+        }
+
+        return phoneNumber.toString();
     }
 }
