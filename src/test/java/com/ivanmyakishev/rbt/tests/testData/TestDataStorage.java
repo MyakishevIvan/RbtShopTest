@@ -1,6 +1,8 @@
 package com.ivanmyakishev.rbt.tests.testData;
 
 import com.github.javafaker.Faker;
+import com.ivanmyakishev.rbt.api.requestsModels.AddProductToCartRequestModel;
+import com.ivanmyakishev.rbt.enums.TestDataType;
 import com.ivanmyakishev.rbt.tests.testData.models.ShopDataModel;
 import com.ivanmyakishev.rbt.tests.testData.models.UserDataModel;
 
@@ -11,12 +13,14 @@ public class TestDataStorage {
     private final UserDataModel userData;
     private final ShopDataModel shopDataModel;
     private final TestDataLoader testDataLoader;
+    private final AddProductToCartRequestModel addProductToCartRequestModel;
     private final Faker faker;
     
     public TestDataStorage() {
         testDataLoader = new TestDataLoader();
-        this.userData = testDataLoader.loadJsonAsObject("user.json", UserDataModel.class);
-        this.shopDataModel = testDataLoader.loadJsonAsObject("shopData.json", ShopDataModel.class);
+        this.userData = testDataLoader.loadJsonAsObject("user.json", TestDataType.UT_TEST_DATA, UserDataModel.class);
+        this.shopDataModel = testDataLoader.loadJsonAsObject("shopData.json",TestDataType.UT_TEST_DATA, ShopDataModel.class);
+        this.addProductToCartRequestModel = testDataLoader.loadJsonAsObject("addProductToCartData.json",TestDataType.API_TEST_DATA, AddProductToCartRequestModel.class);
         faker = new Faker();
     }
 
@@ -26,6 +30,9 @@ public class TestDataStorage {
 
     public ShopDataModel getShopDataModel() {
         return shopDataModel;
+    }
+    public AddProductToCartRequestModel getAddProductToCartRequestModel() {
+        return addProductToCartRequestModel;
     }
    
 
