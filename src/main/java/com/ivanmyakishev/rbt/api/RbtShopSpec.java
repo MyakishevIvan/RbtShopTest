@@ -23,10 +23,12 @@ public class RbtShopSpec {
             .header("Host", "www.rbt.ru")
             .header("Origin", "https://www.rbt.ru")
             .header("Referer", "https://www.rbt.ru/")
-            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36")
+            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36")
             .header("Accept-Language", "ru")
             .header("Connection", "keep-alive")
-//            .header("Content-Type", "application/json")
-            .contentType(JSON)
+            .header("Content-Type", "application/json")
+            .header("Accept", "application/json, text/plain, */*")
+            .header("Accept-Encoding", "gzip, deflate, br, zstd")
+            .header("X-Requested-With", "XMLHttpRequest")
             .log().all();
 }

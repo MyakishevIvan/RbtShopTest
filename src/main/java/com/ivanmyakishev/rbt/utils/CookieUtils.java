@@ -4,7 +4,6 @@ import static com.codeborne.selenide.Selenide.*;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.Cookie;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,10 +13,12 @@ public class CookieUtils {
 
     public static void fetchCookiesOnce(String url) {
         if (cookieText == null) {
-            Configuration.headless = true; 
+            Configuration.headless = false; 
             Configuration.browser = "chrome";
             open(url);
-            Selenide.sleep(2000); 
+            Selenide.sleep(3000);
+            $(".CabinetAction_actionTitle__g_b05").click();
+            Selenide.sleep(1000);
             Set<org.openqa.selenium.Cookie> cookies = WebDriverRunner.getWebDriver().manage().getCookies();
             cookieText = cookies.stream()
                     .map(c -> c.getName() + "=" + c.getValue())
