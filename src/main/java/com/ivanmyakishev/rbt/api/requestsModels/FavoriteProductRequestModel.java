@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddProductToCartRequestModel {
+public class FavoriteProductRequestModel {
     private int itemId;
-    private int qty;
+    private String appName;
 }

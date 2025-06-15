@@ -1,48 +1,52 @@
 package com.ivanmyakishev.rbt.api;
 
 import com.ivanmyakishev.rbt.api.requestsModels.AddProductToCartRequestModel;
+import com.ivanmyakishev.rbt.api.requestsModels.FavoriteProductRequestModel;
 import com.ivanmyakishev.rbt.api.requestsModels.RemoveProductFromCartRequestModel;
 import com.ivanmyakishev.rbt.api.requestsModels.SearchProductRequestModel;
-import com.ivanmyakishev.rbt.api.responsesModels.AddProductToCartResponseModel;
-import com.ivanmyakishev.rbt.api.responsesModels.SearchProductResultResponseModel;
 import io.qameta.allure.Step;
-import io.restassured.response.ValidatableResponse;
+import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
 public class RbtShopApi {
     
-    @Step("Add product to cart")
-    public AddProductToCartResponseModel addProductToCart(AddProductToCartRequestModel data) {
+    @Step("Add product with id={data.itemId} to cart")
+    public Response addProductToCart(AddProductToCartRequestModel data) {
 
         return given(RbtShopSpec.requestSpec)
                 .body(data)
-                .post(Endpoints.ADD_PRODUCT_TO_CART)
-                .then()
-                .spec(RbtShopSpec.successfulResponse200Spec)
-                .extract()
-                .as(AddProductToCartResponseModel.class);
+                .post(Endpoints.ADD_PRODUCT_TO_CART);
     }
 
-    @Step("Remove product from cart")
-    public ValidatableResponse removeProductFromCart(RemoveProductFromCartRequestModel data) {
+    @Step("Remove product with id={data.itemId} from cart")
+    public Response removeProductFromCart(RemoveProductFromCartRequestModel data) {
 
         return given(RbtShopSpec.requestSpec)
                 .body(data)
-                .post(Endpoints.REMOVE_PRODUCT_FROM_CART)
-                .then();
+                .post(Endpoints.REMOVE_PRODUCT_FROM_CART);
     }
 
-    @Step("search Products By Query")
-    public SearchProductResultResponseModel searchProductsByQuery(SearchProductRequestModel data) {
+    @Step("Search Products By Query={data.query}")
+    public Response searchProductsByQuery(SearchProductRequestModel data) {
 
         return given(RbtShopSpec.requestSpec)
                 .queryParam("app", data.getApp())
                 .queryParam("query", data.getQuery())
-                .post(Endpoints.SEARCH_BY_QUERY)
-                .then()
-                .spec(RbtShopSpec.successfulResponse200Spec)
-                .extract()
-                .as(SearchProductResultResponseModel.class);
+                .post(Endpoints.SEARCH_BY_QUERY);
+    }
+
+    @Step("Add product with id={data.itemId} to favorite")
+    public Response addProductToFavorite(FavoriteProductRequestModel data) {
+
+        return given(RbtShopSpec.requestSpec)
+                .get(Endpoints.getAddToFavoritesURL(data.getItemId(), data.getAppName()));
+    }
+
+    @Step("Remove product with id={data.itemId} from favorite")
+    public Response removeProductFromFavorite(FavoriteProductRequestModel data) {
+
+        return given(RbtShopSpec.requestSpec)
+                .get(Endpoints.getRemoveFromFavoritesURL(data.getItemId(), data.getAppName()));
     }
 }

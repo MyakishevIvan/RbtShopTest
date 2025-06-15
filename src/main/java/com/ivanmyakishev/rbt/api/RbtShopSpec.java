@@ -7,13 +7,17 @@ import io.restassured.specification.ResponseSpecification;
 
 import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.ALL;
-import static io.restassured.http.ContentType.JSON;
 
 public class RbtShopSpec {
     private static String baseUrl = "https://www.rbt.ru";
 
-    public final static ResponseSpecification successfulResponse200Spec = new ResponseSpecBuilder()
+    public final static ResponseSpecification response200Spec = new ResponseSpecBuilder()
             .expectStatusCode(200)
+            .log(ALL)
+            .build();
+
+    public final static ResponseSpecification response400Spec  = new ResponseSpecBuilder()
+            .expectStatusCode(400)
             .log(ALL)
             .build();
 
