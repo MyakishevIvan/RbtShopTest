@@ -1,9 +1,7 @@
 package com.ivanmyakishev.rbt.tests.ui;
 
 import com.ivanmyakishev.rbt.enums.MenuCategory;
-import com.ivanmyakishev.rbt.pages.web.mainPage.MainPage;
 import com.ivanmyakishev.rbt.pages.web.ProductPage;
-import com.ivanmyakishev.rbt.tests.testData.TestDataStorage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -17,13 +15,6 @@ TODO:
  */
 
 public class RbtShopUITests extends UITestBase{
-    private MainPage mainPage;
-    private TestDataStorage testDataStorage;
-
-    public RbtShopUITests() {
-        mainPage = new MainPage();
-        testDataStorage = new TestDataStorage();
-    }
 
     @DisplayName("Should select town from main page")
     @Test
@@ -120,6 +111,5 @@ public class RbtShopUITests extends UITestBase{
                 .checkProductByName(productName)
                 .checkProductById(productId);
     }
-    
     
 }

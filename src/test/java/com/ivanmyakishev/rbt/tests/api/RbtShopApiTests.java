@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 //TODO
 //Двойное удаление и добавление товараа из корзины
 
-public class RbtApiTests extends ApiTestBase {
+public class RbtShopApiTests extends ApiTestBase {
     
     @DisplayName("Should add product to cart")
     @Test

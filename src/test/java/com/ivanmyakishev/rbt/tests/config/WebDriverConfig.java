@@ -28,5 +28,8 @@ public interface WebDriverConfig extends Config {
     @Config.Key("browser.headless")
     @Config.DefaultValue("false")
     boolean isBrowserHeadless();
-    
+
+    @Config.Key("browser.pageLoadStrategy")
+    @Config.DefaultValue("eager")
+    String pageLoadStrategy();
 }
