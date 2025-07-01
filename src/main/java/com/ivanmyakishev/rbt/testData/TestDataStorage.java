@@ -1,19 +1,21 @@
-package com.ivanmyakishev.rbt.tests.testData;
+package com.ivanmyakishev.rbt.testData;
 
 import com.github.javafaker.Faker;
 import com.ivanmyakishev.rbt.api.requestsModels.AddProductToCartRequestModel;
 import com.ivanmyakishev.rbt.api.requestsModels.FavoriteProductRequestModel;
 import com.ivanmyakishev.rbt.api.requestsModels.SearchProductRequestModel;
 import com.ivanmyakishev.rbt.enums.TestDataType;
-import com.ivanmyakishev.rbt.tests.testData.models.ShopDataModel;
-import com.ivanmyakishev.rbt.tests.testData.models.UserDataModel;
+import com.ivanmyakishev.rbt.testData.models.AppDataModel;
+import com.ivanmyakishev.rbt.testData.models.ShopDataModel;
+import com.ivanmyakishev.rbt.testData.models.UserDataModel;
 
 import java.util.Random;
 
 public class TestDataStorage {
 
-    private final UserDataModel userData;
+    private final UserDataModel userDataModel;
     private final ShopDataModel shopDataModel;
+    private final AppDataModel appDataModel;
     private final TestDataLoader testDataLoader;
     private final AddProductToCartRequestModel addProductToCartRequestModel;
     private final SearchProductRequestModel searchProductRequestModel;
@@ -23,20 +25,24 @@ public class TestDataStorage {
 
     public TestDataStorage() {
         testDataLoader = new TestDataLoader();
-        this.userData = testDataLoader.loadJsonAsObject("user.json", TestDataType.UT_TEST_DATA, UserDataModel.class);
+        this.userDataModel = testDataLoader.loadJsonAsObject("userData.json", TestDataType.UT_TEST_DATA, UserDataModel.class);
         this.shopDataModel = testDataLoader.loadJsonAsObject("shopData.json",TestDataType.UT_TEST_DATA, ShopDataModel.class);
+        this.appDataModel = testDataLoader.loadJsonAsObject("appData.json",TestDataType.MOBILE_TEST_DATA, AppDataModel.class);
         this.addProductToCartRequestModel = testDataLoader.loadJsonAsObject("addProductToCartData.json",TestDataType.API_TEST_DATA, AddProductToCartRequestModel.class);
         this.searchProductRequestModel = testDataLoader.loadJsonAsObject("searchValues.json",TestDataType.API_TEST_DATA, SearchProductRequestModel.class);
         this.addProductToFavoriteRequestModel = testDataLoader.loadJsonAsObject("addProductToFavoriteData.json",TestDataType.API_TEST_DATA, FavoriteProductRequestModel.class);
         faker = new Faker();
     }
 
-    public UserDataModel getUserData() {
-        return userData;
+    public UserDataModel getUserDataModel() {
+        return userDataModel;
     }
 
     public ShopDataModel getShopDataModel() {
         return shopDataModel;
+    }
+    public AppDataModel getAppDataModel() {
+        return appDataModel;
     }
     public AddProductToCartRequestModel getAddProductToCartRequestModel() {return addProductToCartRequestModel;}
     public SearchProductRequestModel getSearchProductRequestModel() {return searchProductRequestModel;}

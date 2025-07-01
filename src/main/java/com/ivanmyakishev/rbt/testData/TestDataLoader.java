@@ -1,6 +1,5 @@
-package com.ivanmyakishev.rbt.tests.testData;
+package com.ivanmyakishev.rbt.testData;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ivanmyakishev.rbt.enums.TestDataType;
 
@@ -8,14 +7,7 @@ import java.io.InputStream;
 
 public class TestDataLoader {
     private static final ObjectMapper mapper = new ObjectMapper();
-
-    public static JsonNode loadJson(String fileName) {
-        try (InputStream is = TestDataLoader.class.getClassLoader().getResourceAsStream("testdata/" + fileName)) {
-            return mapper.readTree(is);
-        } catch (Exception e) {
-            throw new RuntimeException("Can't read test data file: " + fileName, e);
-        }
-    }
+    
 
     public static <T> T loadJsonAsObject(String fileName,TestDataType testDataType, Class<T> targetClass) {
         String path = "testdata/" + getDataFolderName(testDataType) + fileName;
@@ -31,7 +23,7 @@ public class TestDataLoader {
 
     private static String getDataFolderName(TestDataType testDataType) {
         String result = switch (testDataType) {
-            case UT_TEST_DATA -> "uiTestData";
+            case UT_TEST_DATA -> "webTestData";
             case API_TEST_DATA -> "apiTestData";
             case MOBILE_TEST_DATA -> "mobileTestData";
             default -> throw new IllegalStateException("Unexpected value: " + testDataType);

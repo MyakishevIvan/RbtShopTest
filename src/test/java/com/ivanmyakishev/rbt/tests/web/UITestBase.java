@@ -1,10 +1,10 @@
-package com.ivanmyakishev.rbt.tests.ui;
+package com.ivanmyakishev.rbt.tests.web;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.ivanmyakishev.rbt.pages.web.mainPage.MainPage;
-import com.ivanmyakishev.rbt.tests.config.WebConfigProvider;
-import com.ivanmyakishev.rbt.tests.helper.Attach;
-import com.ivanmyakishev.rbt.tests.testData.TestDataStorage;
+import com.ivanmyakishev.rbt.configs.WebDriverConfigProvider;
+import com.ivanmyakishev.rbt.utils.Attach;
+import com.ivanmyakishev.rbt.testData.TestDataStorage;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class UITestBase {
     protected final MainPage mainPage;
     protected final TestDataStorage testDataStorage;
-    protected static WebConfigProvider configReader;
+    protected static WebDriverConfigProvider configReader;
     
     public UITestBase() {
         mainPage = new MainPage();
@@ -23,7 +23,7 @@ public class UITestBase {
     }
     @BeforeAll
     static void beforeAll() {
-         configReader = new WebConfigProvider();
+         configReader = new WebDriverConfigProvider();
     }
 
     @BeforeEach

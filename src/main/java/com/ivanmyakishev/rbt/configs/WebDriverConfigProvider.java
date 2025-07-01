@@ -1,10 +1,10 @@
-package com.ivanmyakishev.rbt.tests.config;
+package com.ivanmyakishev.rbt.configs;
 
 import com.codeborne.selenide.Configuration;
 
-public class WebConfigProvider extends BaseConfigProvider<WebDriverConfig> {
+public class WebDriverConfigProvider extends BaseConfigProvider<WebDriverConfig> {
 
-    public WebConfigProvider() {
+    public WebDriverConfigProvider() {
         super(WebDriverConfig.class);
     }
 

@@ -1,4 +1,4 @@
-package com.ivanmyakishev.rbt.tests.ui;
+package com.ivanmyakishev.rbt.tests.web;
 
 import com.ivanmyakishev.rbt.enums.MenuCategory;
 import com.ivanmyakishev.rbt.pages.web.ProductPage;
@@ -19,7 +19,7 @@ public class RbtShopUITests extends UITestBase{
     @DisplayName("Should select town from main page")
     @Test
     public void shouldSelectTownSuccessfully() {
-        String checkingTown = testDataStorage.getUserData().getExistingTown();
+        String checkingTown = testDataStorage.getUserDataModel().getExistingTown();
 
         mainPage.open()
                 .openSelectingTownsPopup()
@@ -32,7 +32,7 @@ public class RbtShopUITests extends UITestBase{
     @DisplayName("City is not displayed when entering an invalid name")
     @Test
     public void shouldNotDisplayTownForInvalidInput() {
-        String notExistingTown = testDataStorage.getUserData().getNotExistingTown();
+        String notExistingTown = testDataStorage.getUserDataModel().getNotExistingTown();
 
         mainPage.open()
                 .openSelectingTownsPopup()

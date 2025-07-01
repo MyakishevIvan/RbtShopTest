@@ -1,4 +1,4 @@
-package com.ivanmyakishev.rbt.tests.testData.models;
+package com.ivanmyakishev.rbt.testData.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

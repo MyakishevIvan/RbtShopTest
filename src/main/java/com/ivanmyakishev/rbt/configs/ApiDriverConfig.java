@@ -1,4 +1,4 @@
-package com.ivanmyakishev.rbt.tests.config;
+package com.ivanmyakishev.rbt.configs;
 
 import org.aeonbits.owner.Config;
 @Config.Sources({
