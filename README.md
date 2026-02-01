@@ -10,7 +10,7 @@ RBT is a retail and wholesale electronics and home appliances store that include
 - Usage `Lombok`
 - Allure report
 - Appium
- -Selenide
+- Selenide
 
 ## Implemented Checks
 ### Web UI
